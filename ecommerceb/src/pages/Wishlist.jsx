@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { userRequest } from "../requestMethos";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
