@@ -2,7 +2,8 @@ import { useState } from "react";
 import { register } from "../redux/apiCall";
 import { mobile } from "../responsive";
 import { styled } from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
@@ -10,7 +11,7 @@ const Container = styled.div`
   width: 100vw;
   background: url("https://cdn.wallpapersafari.com/51/1/1T4NnK.jpg") center;
   background-size: cover;
-  opacity: 0.6;
+  opacity: 0.8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +55,7 @@ const Agreement = styled.p`
 `;
 const Button = styled.button`
   padding: 10px;
+  margin-bottom: 5px;
   border-radius: 10px;
   font-weight: 400;
   border: 1px solid black;
@@ -66,11 +68,16 @@ const Button = styled.button`
   ${mobile({ fontSize: "9px" })}
 `;
 
+const Error = styled.span`
+  color: red;
+`;
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstname, setFirstname] = useState("");
   const [email, setEmail] = useState("");
+  const { isFetching, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
@@ -85,32 +92,47 @@ const Register = () => {
           <Input
             type="text"
             placeholder="FirstName..."
+            required
             onChange={(e) => setFirstname(e.target.value)}
           />
           <Input type="text" placeholder="LastName..." />
           <Input
             type="text"
             placeholder="UserName..."
+            required
             onChange={(e) => setUsername(e.target.value)}
           />
           <Input
             type="email"
             placeholder="Type Email..."
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             type="password"
             placeholder="Password..."
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
           <Input type="password" placeholder="Confirm Password..." />
         </Form>
+        {{ isFetching } == true ? (
+          <span style={{ color: "green" }}>Please Wait...</span>
+        ) : (
+          { error } && <Error>{error}</Error>
+        )}
         <Agreement>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate
-          nobis mollitia fuga velit libero sit maxime <b>PRIVACY POLICY</b>
-          similique beatae?
+          By using our services, you agree to our <b>PRIVACY POLICY </b>. We
+          prioritize your data security and only use it for essential purposes,
+          ensuring confidentiality and compliance with legal standards.
         </Agreement>
         <Button onClick={handleClick}>CREATE ACCOUNT</Button>
+        <Link
+          to="/login"
+          style={{ textDecoration: "underline", color: "inherit" }}
+        >
+          Already Account!!
+        </Link>
       </Wrapper>
     </Container>
   );

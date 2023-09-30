@@ -6,7 +6,7 @@ const userSlice = createSlice({
     userId: "",
     currentUser: null,
     isFetching: false,
-    error: false,
+    error: "",
     wishlist: [],
     token: "",
     cartId: "",
@@ -23,15 +23,15 @@ const userSlice = createSlice({
       state.wishlist = action.payload.wishlist;
       state.cartId=action.payload.pendingcartId;
     },
-    loginFailure: (state) => {
+    loginFailure: (state,action) => {
       state.isFetching = false;
-      state.error = true;
+      state.error =action.payload;
     },
     logout: (state) => {
       state.userId = "";
       state.currentUser = null;
       state.isFetching = false;
-      state.error = false;
+      state.error = "";
       state.wishlist = [];
       state.token = "";
       state.cartId = "";

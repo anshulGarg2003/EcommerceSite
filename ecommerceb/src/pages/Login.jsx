@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import { login } from "../redux/apiCall";
 import { useDispatch, useSelector } from "react-redux";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
@@ -64,14 +65,6 @@ const Button = styled.button`
 const Error = styled.span`
   color: red;
 `;
-const Link = styled.a`
-  margin: 3px;
-  font-size: 16px;
-  text-decoration: underline;
-  &:hover {
-    cursor: pointer;
-  }
-`;
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -100,12 +93,21 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form>
-        <Button onClick={handleClick} >
-          LOGIN
-        </Button>
-        {click && error && <Error>Wrong Credential...</Error>}
-        <Link>Forget Password?</Link>
-        <Link>Create Account</Link>
+        <Button onClick={handleClick}>LOGIN</Button>
+        {{ isFetching } == true ? (
+          <span style={{ color: "green" }}>Please Wait...</span>
+        ) : (
+          { error } && <Error>{error}</Error>
+        )}
+        <Link style={{ textDecoration: "underline", color: "inherit" }}>
+          Forget Password?
+        </Link>
+        <Link
+          to="/register"
+          style={{ textDecoration: "underline", color: "inherit" }}
+        >
+          Create Account
+        </Link>
       </Wrapper>
     </Container>
   );

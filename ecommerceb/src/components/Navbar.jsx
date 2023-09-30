@@ -88,7 +88,6 @@ const Navbar = () => {
       const token = user.token;
       const myCartProducts = cart.products;
       const myCartAmount = cart.amount;
-      console.log(userId, myCartProducts, token, myCartAmount);
       const CartId = await dispatch(
         addToCart({ userId, myCartProducts, token, myCartAmount })
       );

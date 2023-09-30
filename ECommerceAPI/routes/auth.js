@@ -4,12 +4,29 @@ const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
+  const { firstname, username, email, password } = req.body;
+
+  // Check if all required fields are provided
+  if (!firstname || !username || !email || !password) {
+    return res.status(401).json("Missing required fields");
+  }
+
+  const existingUsername = await User.findOne({ $or: [{ username }] });
+  const existingUseremail = await User.findOne({ $or: [{ email }] });
+
+  if (existingUsername) {
+    return res.status(401).json("Username already exists" );
+  }
+  if (existingUseremail) {
+    return res.status(401).json("Email already exists" );
+  }
+
   const newUser = new User({
-    firstname:req.body.firstname,
-    username: req.body.username,
-    email: req.body.email,
+    firstname,
+    username,
+    email,
     password: CryptoJS.AES.encrypt(
-      req.body.password,
+      password,
       process.env.CRYPTO_SEC
     ).toString(),
   });
@@ -28,18 +45,20 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
 
-    !user && res.status(401).json("Wrong Credentials!");
+    if (!user) {
+      return res.status(401).json("Username not found!");
+    }
 
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
       process.env.CRYPTO_SEC
     );
 
-    const Originalpassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-    // Originalpassword=user.password;
+    const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    Originalpassword != req.body.password &&
-      res.status(401).json("Wrong Password!");
+    if (originalPassword !== req.body.password) {
+      return res.status(401).json("Wrong Password!");
+    }
 
     const accessToken = jwt.sign(
       {
@@ -50,7 +69,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "3d" }
     );
     const { password, ...others } = user._doc;
-    console.log(user._doc._id.newObjectId);
+    // console.log(user._doc._id.newObjectId);
 
     res.status(200).json({...others,accessToken});
   } catch (err) {
