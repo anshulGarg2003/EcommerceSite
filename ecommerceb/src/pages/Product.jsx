@@ -25,10 +25,13 @@ const Wrapper = styled.div`
 `;
 const ImageContainer = styled.div`
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ${mobile({ display: "flex", justifyContent: "center" })}
 `;
 const Img = styled.img`
-  width: 95%;
+  width: 80%;
   object-fit: cover;
 `;
 const InfoContainer = styled.div`
