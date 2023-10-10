@@ -9,10 +9,10 @@ import { styled } from "styled-components";
 import { useSelector } from "react-redux";
 import { mobile } from "../responsive";
 import { useDispatch } from "react-redux";
-import { addCartId, logout } from "../redux/userRedux";
+import { logout } from "../redux/userRedux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { addToCart, addToUserCart, findingCart } from "../redux/apiCall";
+import { addToCart, addToUserCart } from "../redux/apiCall";
 import { checkout } from "../redux/newCartRedux";
 
 const Container = styled.div`
@@ -84,26 +84,24 @@ const Navbar = () => {
   // console.log(cart)
   const userId = user.userId;
   const history = useHistory();
-  const onlogout = async() => {
-      const token = user.token;
-      const myCartProducts = cart.products;
-      const myCartAmount = cart.amount;
-      const CartId = await dispatch(
-        addToCart({ userId, myCartProducts, token, myCartAmount })
-      );
-      // await console.log(CartId, userId);
-      await dispatch(addToUserCart({CartId, userId}));
-      dispatch(logout());
-      dispatch(checkout());
-      history.push("/");  
-    };
-  const handleCartClick = () =>{
-    user.currentUser===null ?(
-      alert("Login First")
-    ):(
-      history.push(`/cart/${user.userId}`)
-    )
-  }
+  const onlogout = async () => {
+    const token = user.token;
+    const myCartProducts = cart.products;
+    const myCartAmount = cart.amount;
+    const CartId = await dispatch(
+      addToCart({ userId, myCartProducts, token, myCartAmount })
+    );
+    // await console.log(CartId, userId);
+    await dispatch(addToUserCart({ CartId, userId }));
+    dispatch(logout());
+    dispatch(checkout());
+    history.push("/");
+  };
+  const handleCartClick = () => {
+    user.currentUser === null
+      ? alert("Login First")
+      : history.push(`/cart/${user.userId}`);
+  };
   return (
     <Container>
       <Wrapper>
@@ -148,9 +146,9 @@ const Navbar = () => {
           )}
 
           <MenuItem onClick={handleCartClick}>
-              <Badge badgeContent={cart.quantity} color="primary">
-                <ShoppingCartOutlined />
-              </Badge>
+            <Badge badgeContent={cart.quantity} color="primary">
+              <ShoppingCartOutlined />
+            </Badge>
           </MenuItem>
         </Right>
       </Wrapper>

@@ -10,10 +10,9 @@ import { publicRequest } from "../requestMethos";
 import { addProduct } from "../redux/newCartRedux";
 import { useDispatch, useSelector } from "react-redux";
 import { mobile } from "../responsive";
-import { addToCart, addToWishlist } from "../redux/apiCall";
+import { addToWishlist } from "../redux/apiCall";
 import { useHistory } from "react-router-dom";
-import { checkout } from "../redux/newCartRedux";
-import { addSelectProduct, deleteSelectProduct } from "../redux/productRedux";
+import { addSelectProduct } from "../redux/productRedux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -198,20 +197,18 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-    const handleClick = () => {
-      if (colour !== "" && size !== "") {
-        const price=product.price;
-        dispatch(addSelectProduct({product,quantity,colour,size,price}))
-        setIsClick(true);
-      } else {
-        alert("Select Size and Colour");
-      }
-    };
-    useEffect(()=>{
-      isClick && (
-      dispatch(addProduct({myselectproduct}))
-    );
-    },[isClick])
+  const handleClick = () => {
+    if (colour !== "" && size !== "") {
+      const price = product.price;
+      dispatch(addSelectProduct({ product, quantity, colour, size, price }));
+      setIsClick(true);
+    } else {
+      alert("Select Size and Colour");
+    }
+  };
+  useEffect(() => {
+    isClick && dispatch(addProduct({ myselectproduct }));
+  }, [isClick]);
 
   const handleWishlist = async () => {
     const userId = user.userId;

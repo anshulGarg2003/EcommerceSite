@@ -3,11 +3,8 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
 import SumProduct from "../components/SumProduct";
@@ -31,10 +28,10 @@ const TopButton = styled.button`
   cursor: pointer;
   /* align-items: center; */
   border: 1px solid;
-  border: ${(props) => props.type == "filled" && "none"};
+  border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
     props.type == "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type == "filled" && "white"};
+  color: ${(props) => props.type === "filled" && "white"};
   font-size: 15px;
   margin: 10px;
   &:hover {

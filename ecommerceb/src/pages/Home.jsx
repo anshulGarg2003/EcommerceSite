@@ -6,7 +6,6 @@ import Products from "../components/Products";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import { styled } from "styled-components";
-import { useEffect } from "react";
 
 const Title = styled.h1`
   margin: 20px;

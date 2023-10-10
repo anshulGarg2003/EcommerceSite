@@ -11,9 +11,8 @@ const Container = styled.div`
   /* background-color: coral; */
   position: relative;
   overflow: hidden;
-  ${mobile({height:"40vh"})}
-`;  
-
+  ${mobile({ height: "40vh" })}
+`;
 
 const Arrow = styled.div`
   width: 50px;
@@ -40,7 +39,6 @@ const Wrapper = styled.div`
   display: flex;
   transition: all 1s ease;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
-
 `;
 
 const Slide = styled.div`
@@ -49,7 +47,7 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
-  ${mobile({height:"42vh"})}
+  ${mobile({ height: "42vh" })}
 `;
 const ImgContainer = styled.div`
   display: flex;
@@ -57,22 +55,19 @@ const ImgContainer = styled.div`
   justify-content: center;
   height: 100%;
   flex: 3;
-  ${mobile({flex:0})}
-
+  ${mobile({ flex: 0 })}
 `;
 
 const Img = styled.img`
   height: 90%;
-  ${mobile({maxWidth: "375px", minWidth: "375px"})}
+  ${mobile({ maxWidth: "375px", minWidth: "375px" })}
   object-fit:"cover"
-
 `;
 
 const InfoContainer = styled.div`
   flex: 2;
   padding: 30px;
-  ${mobile({flex:0,display:"none"})}
-
+  ${mobile({ flex: 0, display: "none" })}
 `;
 
 const Title = styled.h1`
@@ -95,11 +90,11 @@ const Button = styled.button`
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
-    if (direction == "left") {
+    if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
     }
 
-    if (direction == "right") {
+    if (direction === "right") {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
@@ -107,9 +102,9 @@ const Slider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex < 2 ? prevIndex + 1 : 0));
-    }, 3000); 
+    }, 3000);
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, []);
 
   return (

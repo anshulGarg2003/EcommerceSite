@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import Product from "./Product";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { products } from "../data";
+const NEW_URL="https://firstprojbackend.onrender.com";
 const Container = styled.div`
   padding: 5px;
   display: flex;
@@ -16,7 +16,7 @@ const Products = ({ cat, filters, sort }) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        let url = "http://localhost:5000/api/products";
+        let url = `${NEW_URL}/api/products`;
         if (cat) {
           url += `?category=${cat}`;
         }

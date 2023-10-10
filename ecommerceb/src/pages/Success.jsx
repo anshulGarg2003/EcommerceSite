@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`

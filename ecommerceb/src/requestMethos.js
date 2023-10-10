@@ -1,5 +1,5 @@
 import axios from "axios";
-const NEW_URL="http://localhost:5000";
+const NEW_URL="https://firstprojbackend.onrender.com";
 const Base_URL = `${NEW_URL}/api`;
 console.log(process.env.BASE_URL)
 

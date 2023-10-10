@@ -1,6 +1,5 @@
 import {
   FavoriteBorderOutlined,
-  ShoppingCartOutlined,
   VisibilityOutlined,
 } from "@mui/icons-material";
 import { styled } from "styled-components";
@@ -68,15 +67,15 @@ const Icons = styled.div`
 const Product = ({ item }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const handleClick=()=>{
+  const handleClick = () => {
     if (user !== null) {
       const userId = user.userId;
       const product = item;
       addToWishlist(dispatch, { userId, product });
     } else {
       alert("Login First");
-    } 
-  }
+    }
+  };
   return (
     <Container>
       <Img src={item.img} />

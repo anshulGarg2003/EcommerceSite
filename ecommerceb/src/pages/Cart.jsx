@@ -3,11 +3,9 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
-// import { Add, Remove } from "@mui/icons-material";
 import { CloseSharp } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { useState,} from "react";
 import { useSelector } from "react-redux";
-import StripeCheckOut from "react-stripe-checkout";
 // import { publicRequest } from "../requestMethos";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -15,9 +13,6 @@ import { mobile } from "../responsive";
 import { checkout, removeProduct } from "../redux/newCartRedux";
 import { Link } from "react-router-dom";
 import { addToCart, addToOrder } from "../redux/apiCall";
-import { useLocation } from "react-router-dom";
-
-// const KEY =env.process.STRIPE_SEC_KEY;
 const Container = styled.div`
   position: relative;
   background-color: #fff;
@@ -51,7 +46,7 @@ const TopButton = styled.button`
   border: ${(props) => props.type == "filled" && "none"};
   background-color: ${(props) =>
     props.type == "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type == "filled" && "white"};
+  color: ${(props) => props.type === "filled" && "white"};
   font-size: 15px;
   margin: 10px;
   &:hover {
@@ -288,7 +283,7 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const userId = user.userId;
   const wishlist = useSelector((state) => state.user.wishlist);
-  const [stripeToken, setStripeToken] = useState(null);
+  const [ setStripeToken] = useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
   // console.log(cart);
@@ -311,10 +306,6 @@ const Cart = () => {
   const handleCloseClick=async(product)=>{
     dispatch(removeProduct(product));
   }
-
-  const onToken = (token) => {
-    setStripeToken(token);
-  };
 
   // console.log(stripeToken);
   // useEffect(() => {
