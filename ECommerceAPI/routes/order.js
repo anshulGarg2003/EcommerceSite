@@ -4,18 +4,21 @@ const {
   verifyTokenAndAdmin,
   verifyToken,
 } = require("./verifyToken");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const router = require("express").Router();
 
 // Create
 
-router.post("/", async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
+  // console.log(req.body);
   const { myUserId, myCartId } = req.body;
   const newOrder = new Order({
-    userId:myUserId,
-    cartId:myCartId,
+    userId: myUserId,
+    cartId: myCartId,
   });
-    // console.log(newOrder);
+  // console.log(newOrder);
   try {
     const savedOrder = await newOrder.save();
     res.status(200).json(savedOrder);

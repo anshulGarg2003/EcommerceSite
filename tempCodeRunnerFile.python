@@ -1,0 +1,9 @@
+# def print_sum(first,second):
+#     print(first+second);
+
+# print_sum(3,5)
+
+first=input("Type a no.->");
+
+sum=first + 28;
+print(sum);
