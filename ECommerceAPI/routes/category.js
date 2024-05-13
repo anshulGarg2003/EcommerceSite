@@ -44,7 +44,7 @@ router.delete(
 
     try {
       const deletedCategoryData = await CategoryData.findByIdAndDelete(id);
-      // console.log(deletedCategoryData)
+      // console.log(deletedCategoryData);
 
       if (!deletedCategoryData) {
         return res.status(404).json({ message: "Category data not found" });
